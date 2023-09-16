@@ -1,8 +1,7 @@
 # Навигация:
 
 ## Лабороторные работы 2 курс:
-1) [Лабораторная работа №1]
-<!-- (https://github.com/StupidFraid/javaBasicLab/tree/master/src/Lab_1) -->
+1) [Лабораторная работа №1](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_1)
 
 
 <!-- ### Timus: [Задачи на Timus](https://github.com/StupidFraid/javaBasicLab/tree/master/src/timus)
