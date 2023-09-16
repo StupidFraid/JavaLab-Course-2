@@ -2,7 +2,7 @@
 
 ## Лабороторные работы 2 курс:
 1) [Лабораторная работа №1](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_1) :white_check_mark:
-2) [Лабораторная работа №2](#) :no_entry_sign:
+2) [Лабораторная работа №2](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_2) :clock1:
 
 
 <!-- ### Timus: [Задачи на Timus](https://github.com/StupidFraid/javaBasicLab/tree/master/src/timus)

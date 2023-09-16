@@ -1,6 +1,7 @@
 package ru.alexey4he.lab_2.model;
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
