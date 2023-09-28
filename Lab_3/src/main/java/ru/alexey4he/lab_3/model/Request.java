@@ -1,4 +1,4 @@
-package ru.alexey4he.lab_2.model;
+package ru.alexey4he.lab_3.model;
 
 
 import jakarta.validation.constraints.NotBlank;
@@ -33,4 +33,19 @@ public class Request {
     private int templateId;
     private int productCode;
     private int smsCode;
+
+    @Override
+    public String toString(){
+        return "{" +
+                "uid='" + uid + '\'' +
+                ", operationUid='" + operationUid + '\'' +
+                ", systemName='" + systemName + '\'' +
+                ", systemTime='" + systemTime + '\'' +
+                ", source='" + source + '\'' +
+                ", communicationId=" + communicationId +
+                ", teplateId=" + templateId +
+                ", productCode=" + productCode +
+                ", smsCode=" + smsCode +
+                "}";
+    }
 }

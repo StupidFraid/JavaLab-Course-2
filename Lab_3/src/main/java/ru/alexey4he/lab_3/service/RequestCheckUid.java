@@ -1,8 +1,8 @@
-package ru.alexey4he.lab_2.service;
+package ru.alexey4he.lab_3.service;
 
 import org.springframework.stereotype.Service;
-import ru.alexey4he.lab_2.exception.UnsupportedCodeException;
-import ru.alexey4he.lab_2.model.Request;
+import ru.alexey4he.lab_3.exception.UnsupportedCodeException;
+import ru.alexey4he.lab_3.model.Request;
 
 @Service
 public class RequestCheckUid implements CheckUidService{
