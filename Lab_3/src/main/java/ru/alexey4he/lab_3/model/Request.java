@@ -23,7 +23,7 @@ public class Request {
     @NotBlank
     @Size(max = 32)
     private String operationUid;
-    private String systemName;
+    private SystemName systemName;
 //  Validation
     private String systemTime;
     private String source;
@@ -43,7 +43,7 @@ public class Request {
                 ", systemTime='" + systemTime + '\'' +
                 ", source='" + source + '\'' +
                 ", communicationId=" + communicationId +
-                ", teplateId=" + templateId +
+                ", templateId=" + templateId +
                 ", productCode=" + productCode +
                 ", smsCode=" + smsCode +
                 "}";
