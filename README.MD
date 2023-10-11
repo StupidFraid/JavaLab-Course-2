@@ -4,7 +4,7 @@
 1) [Лабораторная работа №1](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_1) :white_check_mark:
 2) [Лабораторная работа №2](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_2) :white_check_mark:
 3) [Лабораторная работа №3](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_3) :white_check_mark:
-4) [Лабораторная работа №4](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_4) :clock1:
+4) [Лабораторная работа №4](https://github.com/StupidFraid/JavaLab-Course-2/tree/main/Lab_4) :white_check_mark:
 
 
 <!-- ### Timus: [Задачи на Timus](https://github.com/StupidFraid/javaBasicLab/tree/master/src/timus)

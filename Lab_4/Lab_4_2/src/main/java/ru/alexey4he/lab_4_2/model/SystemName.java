@@ -1,6 +1,5 @@
-package ru.alexey4he.lab_3.model;
+package ru.alexey4he.lab_4_2.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SystemName {

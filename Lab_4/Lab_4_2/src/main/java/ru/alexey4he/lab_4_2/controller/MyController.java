@@ -1,23 +1,21 @@
-package ru.alexey4he.lab_3.controller;
+package ru.alexey4he.lab_4_2.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.alexey4he.lab_3.exception.UnsupportedCodeException;
-import ru.alexey4he.lab_3.exception.ValidationFailedException;
-import ru.alexey4he.lab_3.model.*;
-import ru.alexey4he.lab_3.service.CheckUidService;
-import ru.alexey4he.lab_3.service.ModifyRequestService;
-import ru.alexey4he.lab_3.service.ModifyResponseService;
-import ru.alexey4he.lab_3.service.ValidationService;
-import ru.alexey4he.lab_3.util.DateTimeUtil;
+import ru.alexey4he.lab_4_2.exception.UnsupportedCodeException;
+import ru.alexey4he.lab_4_2.exception.ValidationFailedException;
+import ru.alexey4he.lab_4_2.model.*;
+import ru.alexey4he.lab_4_2.service.CheckUidService;
+import ru.alexey4he.lab_4_2.service.DifferenceTime;
+import ru.alexey4he.lab_4_2.service.ValidationService;
+import ru.alexey4he.lab_4_2.util.DateTimeUtil;
 
 import java.util.Date;
 
@@ -27,20 +25,11 @@ public class MyController {
 
     private final ValidationService validationService;
     private final CheckUidService checkUidService;
-    private final ModifyRequestService modifyRequestService;
-    private final ModifyResponseService modifyResponseService;
-    private final ModifyRequestService modifySourceRequestService;
 
     @Autowired
-    public MyController(ValidationService validationService, CheckUidService checkUidService,
-                        @Qualifier("ModifySourceRequestService") ModifyRequestService modifySourceRequestService,
-                        @Qualifier("ModifySystemTimeResponseService") ModifyResponseService modifyResponseService,
-                        @Qualifier("ModifySystemNameRequestService") ModifyRequestService modifyRequestService){
+    public MyController(ValidationService validationService, CheckUidService checkUidService){
         this.validationService = validationService;
         this.checkUidService = checkUidService;
-        this.modifyResponseService = modifyResponseService;
-        this.modifyRequestService = modifyRequestService;
-        this.modifySourceRequestService = modifySourceRequestService;
     }
 
     @PostMapping(value = "/feedback")
@@ -48,8 +37,6 @@ public class MyController {
                                              BindingResult bindingResult){
 
         log.info("request: {}", request);
-        modifySourceRequestService.modify(request);
-        log.info("Modify request: {}", request);
         Response response = Response.builder()
                 .uid(request.getUid())
                 .operationUid(request.getOperationUid())
@@ -60,6 +47,7 @@ public class MyController {
                 .build();
 
         log.info("response: {}", response);
+        DifferenceTime.checkDifferenceTime(request, response);
 
 
         try {
@@ -84,9 +72,6 @@ public class MyController {
         log.error("response: {}", response);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-        request.setSystemTime(response.getSystemTime());
-        modifyRequestService.modify(request);
-        modifyResponseService.modify(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
