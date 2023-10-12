@@ -3,6 +3,7 @@ package ru.alexey4he.lab_5.model;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SystemName {
+    NONESYSTEMNAME(""),
     ERP("Enterprise Resource Planning"),
     CRM("Customer Relationship Management"),
     WMS("Warehouse Management System");

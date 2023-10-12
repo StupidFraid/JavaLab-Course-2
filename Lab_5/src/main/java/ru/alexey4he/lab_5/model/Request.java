@@ -27,6 +27,10 @@ public class Request {
 //  Validation
     private String systemTime;
     private String source;
+    private Position position;
+    private Double salary;
+    private Double bonus;
+    private Integer workDays;
 //  Validation range 1 - 100000
     @Range(min = 1, max = 100000)
     private int communicationId;
@@ -42,6 +46,10 @@ public class Request {
                 ", systemName='" + systemName + '\'' +
                 ", systemTime='" + systemTime + '\'' +
                 ", source='" + source + '\'' +
+                ", position='" + position + '\'' +
+                ", salary='" + salary + '\'' +
+                ", bonus=" + bonus + '\'' +
+                ", workDays=" + workDays + '\'' +
                 ", communicationId=" + communicationId +
                 ", templateId=" + templateId +
                 ", productCode=" + productCode +

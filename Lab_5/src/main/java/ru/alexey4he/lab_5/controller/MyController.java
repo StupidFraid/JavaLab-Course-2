@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.alexey4he.lab_5.exception.UnsupportedCodeException;
 import ru.alexey4he.lab_5.exception.ValidationFailedException;
 import ru.alexey4he.lab_5.model.*;
-import ru.alexey4he.lab_5.service.CheckUidService;
-import ru.alexey4he.lab_5.service.ValidationService;
+import ru.alexey4he.lab_5.service.*;
 import ru.alexey4he.lab_5.util.DateTimeUtil;
 
 import java.util.Date;
@@ -24,24 +23,49 @@ public class MyController {
 
     private final ValidationService validationService;
     private final CheckUidService checkUidService;
+    private final AnnualBonusService annualBonusService;
+    private final QuarterlyBonusService quarterlyBonusService;
 
     @Autowired
-    public MyController(ValidationService validationService, CheckUidService checkUidService){
+    public MyController(ValidationService validationService,
+                        CheckUidService checkUidService,
+                        AnnualBonusServiceImpl annualBonusService,
+                        QuarterlyBonusServiceImpl quarterlyBonusService){
         this.validationService = validationService;
         this.checkUidService = checkUidService;
+        this.annualBonusService = annualBonusService;
+        this.quarterlyBonusService = quarterlyBonusService;
     }
 
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@Valid @RequestBody Request request,
                                              BindingResult bindingResult){
+        boolean isManagerMark;
 
-        log.info("request: {}", request);
-
+        log.info("Send api request: {}", request);
+        if (request.getPosition().isManager()){
+             if (request.getWorkDays() > 93) {
+                 ErrorCodes.valueOf("Необходимо ввести количество дней за квартал");
+             }
+             else {
+                 annualBonusService.calculate(
+                         request.getPosition(),
+                         request.getSalary(),
+                         request.getBonus(),
+                         request.getWorkDays());
+             }
+        }
         Response response = Response.builder()
                 .uid(request.getUid())
                 .operationUid(request.getOperationUid())
                 .systemTime(DateTimeUtil.getCustomFormat().format(new Date()))
                 .code(Codes.SUCCESS)
+                .annualBonus(
+                        annualBonusService.calculate(
+                                request.getPosition(),
+                                request.getSalary(),
+                                request.getBonus(),
+                                request.getWorkDays()))
                 .errorCode(ErrorCodes.EMPTY)
                 .errorMessage(ErrorMessages.EMPTY)
                 .build();
