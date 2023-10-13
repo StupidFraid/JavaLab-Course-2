@@ -46,14 +46,14 @@ public class MyController {
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@Valid @RequestBody Request request,
                                              BindingResult bindingResult){
-
+        request.setSystemTime(DateTimeUtil.getCustomFormat().format(new Date()));
         log.info("request: {}", request);
         modifySourceRequestService.modify(request);
         log.info("Modify request: {}", request);
         Response response = Response.builder()
                 .uid(request.getUid())
                 .operationUid(request.getOperationUid())
-                .systemTime(DateTimeUtil.getCustomFormat().format(new Date()))
+                .systemTime(request.getSystemTime())
                 .code(Codes.SUCCESS)
                 .errorCode(ErrorCodes.EMPTY)
                 .errorMessage(ErrorMessages.EMPTY)

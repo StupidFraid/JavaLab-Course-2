@@ -15,6 +15,7 @@ public class ModifySystemNameRequestService implements ModifyRequestService {
     @Override
     public Request modify(Request request){
         request.setSystemName(SystemName.SERVICE1);
+        request.setSource("Service 1 send JSON messages to Service 2");
 
         HttpEntity<Request> httpEntity = new HttpEntity<>(request);
 
