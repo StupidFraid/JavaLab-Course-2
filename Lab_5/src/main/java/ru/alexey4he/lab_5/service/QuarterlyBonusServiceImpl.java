@@ -15,19 +15,18 @@ public class QuarterlyBonusServiceImpl implements QuarterlyBonusService {
     public double calculate(Position position, double salary, double bonus, int workDays) {
         int month = Calendar.getInstance().get(Calendar.MONTH);
 
-        workDays = checkWorkDay(workDays);
 
-        log.info("Количество рабочих дней последнем квартале: {}", workDays);
-        return salary * bonus * workDays * position.getPositionCoefficient() / workDays;
+        log.info("Сейчас идет {} квартал", ((month + 1) / 3) + 1);
+        log.info("Количество рабочих дней в последнем квартале: {}", checkWorkDay(workDays));
+        return salary * bonus * checkWorkDay(workDays) * position.getPositionCoefficient() / checkWorkDay(workDays);
     }
 
 
     public int checkWorkDay(int workDay){
         if (workDay > averageWorkDayInQuartal){
             workDay = workDay - averageWorkDayInQuartal;
-            checkWorkDay(workDay);
+            return checkWorkDay(workDay);
         }
-
         return workDay;
     }
 }

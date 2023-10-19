@@ -23,17 +23,12 @@ public class MyController {
 
     private final ValidationService validationService;
     private final CheckUidService checkUidService;
-    private final ru.alexey4he.lab_5.service.calculateBonus calculateBonus;
 
     @Autowired
     public MyController(ValidationService validationService,
-                        CheckUidService checkUidService,
-                        AnnualBonusServiceImpl annualBonusService,
-                        QuarterlyBonusServiceImpl quarterlyBonusService,
-                        calculateBonus calculateBonus){
+                        CheckUidService checkUidService){
         this.validationService = validationService;
         this.checkUidService = checkUidService;
-        this.calculateBonus = calculateBonus;
     }
 
     @PostMapping(value = "/feedback")
@@ -49,7 +44,7 @@ public class MyController {
                 .code(Codes.SUCCESS)
                 .errorCode(ErrorCodes.EMPTY)
                 .errorMessage(ErrorMessages.EMPTY)
-                .Bonus(23.2)
+                .bonus(CalculateBonus.cashBonus(request))
                 .build();
 
         log.info("response: {}", response);
