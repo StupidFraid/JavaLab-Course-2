@@ -23,51 +23,28 @@ public class MyController {
 
     private final ValidationService validationService;
     private final CheckUidService checkUidService;
-    private final AnnualBonusService annualBonusService;
-    private final QuarterlyBonusService quarterlyBonusService;
 
     @Autowired
     public MyController(ValidationService validationService,
-                        CheckUidService checkUidService,
-                        AnnualBonusServiceImpl annualBonusService,
-                        QuarterlyBonusServiceImpl quarterlyBonusService){
+                        CheckUidService checkUidService){
         this.validationService = validationService;
         this.checkUidService = checkUidService;
-        this.annualBonusService = annualBonusService;
-        this.quarterlyBonusService = quarterlyBonusService;
     }
 
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@Valid @RequestBody Request request,
-                                             BindingResult bindingResult){
-        boolean isManagerMark;
-
+                                             BindingResult bindingResult) {
         log.info("Send api request: {}", request);
-        if (request.getPosition().isManager()){
-             if (request.getWorkDays() > 93) {
-                 ErrorCodes.valueOf("Необходимо ввести количество дней за квартал");
-             }
-             else {
-                 annualBonusService.calculate(
-                         request.getPosition(),
-                         request.getSalary(),
-                         request.getBonus(),
-                         request.getWorkDays());
-             }
-        }
+
+
         Response response = Response.builder()
                 .uid(request.getUid())
                 .operationUid(request.getOperationUid())
                 .systemTime(DateTimeUtil.getCustomFormat().format(new Date()))
                 .code(Codes.SUCCESS)
-                .annualBonus(
-                        annualBonusService.calculate(
-                                request.getPosition(),
-                                request.getSalary(),
-                                request.getBonus(),
-                                request.getWorkDays()))
                 .errorCode(ErrorCodes.EMPTY)
                 .errorMessage(ErrorMessages.EMPTY)
+                .bonus(CalculateBonus.cashBonus(request))
                 .build();
 
         log.info("response: {}", response);
