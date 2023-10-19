@@ -9,11 +9,25 @@ import java.util.Calendar;
 @Slf4j
 @Service
 public class QuarterlyBonusServiceImpl implements QuarterlyBonusService {
+
+    final int averageWorkDayInQuartal = 66;
     @Override
     public double calculate(Position position, double salary, double bonus, int workDays) {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        int days = Year.of(year).length() / 4;
-        log.info("Среднее количество дней в этом квартале: {}", days);
-        return salary * bonus * year * position.getPositionCoefficient() / workDays;
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+
+        workDays = checkWorkDay(workDays);
+
+        log.info("Количество рабочих дней последнем квартале: {}", workDays);
+        return salary * bonus * workDays * position.getPositionCoefficient() / workDays;
+    }
+
+
+    public int checkWorkDay(int workDay){
+        if (workDay > averageWorkDayInQuartal){
+            workDay = workDay - averageWorkDayInQuartal;
+            checkWorkDay(workDay);
+        }
+
+        return workDay;
     }
 }
