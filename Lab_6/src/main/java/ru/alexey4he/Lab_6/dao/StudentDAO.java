@@ -13,5 +13,5 @@ public interface StudentDAO {
 
     Student getStudent(long id);
 
-    void deleteStudent(long id);
+    int deleteStudent(long id);
 }

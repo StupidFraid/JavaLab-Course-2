@@ -2,6 +2,7 @@ package ru.alexey4he.Lab_6.entity;
 
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
@@ -38,6 +39,14 @@ public class Student {
         this.surname = surname;
         this.faculty = faculty;
         this.age = age;
+    }
+
+    public Student(Long id, String name, String surname, String faculty, int age){
+        this.id = id;
+        this.name = "NotFound";
+        this.surname = "NotFound";
+        this.faculty = "NotFound";
+        this.age = 0;
     }
 
 
