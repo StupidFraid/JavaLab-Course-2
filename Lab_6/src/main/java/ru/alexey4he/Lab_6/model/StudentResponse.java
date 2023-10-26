@@ -7,9 +7,12 @@ import ru.alexey4he.Lab_6.entity.Student;
 public class StudentResponse {
     private Student student;
     private StatusCode status;
+    private TypeOperations typeOperations;
 
 
-    public StudentResponse(Student student, StatusCode statusCode){
+
+    public StudentResponse(TypeOperations typeOperations, Student student, StatusCode statusCode){
+        this.typeOperations = typeOperations;
         this.student = student;
         this.status = statusCode;
     };
