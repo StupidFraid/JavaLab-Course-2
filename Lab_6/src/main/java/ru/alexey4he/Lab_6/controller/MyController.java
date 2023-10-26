@@ -40,22 +40,29 @@ public class MyController {
 
     @PutMapping("/students")
     public StudentResponse updateStudent(@RequestBody Student student){
-        StudentResponse response = new StudentResponse(
-                studentService.saveStudent(student), StatusCode.UPDATE);
+        Student existingStudent = studentService.getStudent(student.getId());
+        StudentResponse response;
+        if (existingStudent != null){
+            response = new StudentResponse(
+                    studentService.saveStudent(student), StatusCode.UPDATE);
+        }
+        else {
+            response = new StudentResponse(
+                    null, StatusCode.ERROR);
+
+        }
         return response;
     }
 
     @DeleteMapping("/students/{id}")
     public StudentResponse updateStudent(@PathVariable("id") Long id) {
-//        return studentService.deleteStudent(id);
         Student deleteStudentInfo = studentService.getStudent(id);
         int stateDeleteStudent = studentService.deleteStudent(id);
-        log.info(String.valueOf(stateDeleteStudent));
         if (stateDeleteStudent > 0){
             return new StudentResponse(deleteStudentInfo, StatusCode.DELETE);
         }
         else {
-            return new StudentResponse(deleteStudentInfo, StatusCode.ERRORDELETE);
+            return new StudentResponse(deleteStudentInfo, StatusCode.ERROR);
         }
     }
 
