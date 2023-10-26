@@ -41,13 +41,5 @@ public class Student {
         this.age = age;
     }
 
-    public Student(Long id, String name, String surname, String faculty, int age){
-        this.id = id;
-        this.name = "NotFound";
-        this.surname = "NotFound";
-        this.faculty = "NotFound";
-        this.age = 0;
-    }
-
 
 }
